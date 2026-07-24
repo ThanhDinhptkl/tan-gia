@@ -1,0 +1,384 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee9df;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+
+/* Khung thiệp */
+
+.card {
+  width: 500px;
+  height: 700px;
+  border-radius: 30px;
+  overflow: hidden;
+  background-image: url(images/background.jpg);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+  animation: cardIntro 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardIntro {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0 50%, transparent 50%),
+    linear-gradient(225deg, rgba(255, 255, 255, 0.78) 0 50%, transparent 50%),
+    linear-gradient(
+      to bottom,
+      rgba(201, 150, 24, 0.08),
+      rgba(201, 150, 24, 0.02)
+    );
+  clip-path: polygon(0 0, 50% 48%, 100% 0, 100% 100%, 0 100%);
+  transform-origin: top center;
+  transition:
+    transform 0.8s ease,
+    opacity 0.8s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover::after,
+.card:focus-within::after,
+.card:active::after {
+  transform: translateY(-20%) scaleY(0.92);
+  opacity: 0.5;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(
+    120deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%) rotate(20deg);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover::before {
+  transform: translateX(120%) rotate(20deg);
+}
+
+/* Khung viền trang trí góc kiểu thiệp cưới */
+
+.card-overlay::before,
+.card-overlay::after {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border: 2px solid rgba(201, 150, 24, 0.55);
+  pointer-events: none;
+  z-index: 2;
+  animation: cornerFade 1s ease 0.3s both;
+}
+
+.card-overlay::before {
+  top: 22px;
+  left: 22px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 14px 0 0 0;
+}
+
+.card-overlay::after {
+  bottom: 22px;
+  right: 22px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 14px 0;
+}
+
+@keyframes cornerFade {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Lớp phủ trên nền */
+
+.card-overlay {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 55px;
+  gap: 14px;
+  backdrop-filter: none;
+  position: relative;
+  z-index: 1;
+  transition:
+    transform 0.8s ease,
+    opacity 0.8s ease;
+}
+
+.card:hover .card-overlay,
+.card:focus-within .card-overlay,
+.card:active .card-overlay {
+  transform: translateY(-18px) scale(1.01);
+  opacity: 0.98;
+}
+
+/* Tiêu đề nhỏ */
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+  letter-spacing: 1px;
+  animation: fadeInUp 0.7s ease 0.15s both;
+}
+
+/* Tân gia — hiệu ứng ánh sáng lấp lánh */
+
+h1 {
+  position: relative;
+  margin: 4px 0 6px;
+  font-family: "Playfair Display", serif;
+  font-size: 58px;
+  letter-spacing: 3px;
+  background: linear-gradient(
+    100deg,
+    #a87900,
+    #f0c04f 35%,
+    #c99618 55%,
+    #f0c04f 70%,
+    #a87900
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    fadeInUp 0.7s ease 0.3s both,
+    shineTitle 4.5s linear infinite 1.2s;
+}
+
+@keyframes shineTitle {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 250% center;
+  }
+}
+
+/* Đường trang trí dưới tiêu đề */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 220px;
+  margin: 2px 0 6px;
+  animation: fadeInUp 0.7s ease 0.4s both;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c99618);
+}
+
+.divider::after {
+  background: linear-gradient(to left, transparent, #c99618);
+}
+
+.divider span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c99618;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Dòng kính mời */
+
+.invite {
+  margin: 6px 0 0;
+  font-size: 17px;
+  color: #333;
+  animation: fadeInUp 0.7s ease 0.5s both;
+}
+
+/* Tên khách */
+
+h2 {
+  margin: 6px 0 4px;
+  font-size: 38px;
+  font-weight: 600;
+  color: #b8860b;
+  animation: fadeInUp 0.7s ease 0.62s both;
+}
+
+/* Nội dung */
+
+.desc {
+  margin: 0 0 10px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #333;
+  max-width: 340px;
+  animation: fadeInUp 0.7s ease 0.74s both;
+}
+
+/* Thông tin */
+
+.info {
+  margin: 12px 0 4px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #333;
+  animation: fadeInUp 0.7s ease 0.88s both;
+}
+
+/* Button */
+
+.mapBtn {
+  margin-top: 18px;
+  padding: 15px 45px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #c99618, #e0b23a);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(201, 150, 24, 0.3);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+  animation:
+    fadeInUp 0.7s ease 1.02s both,
+    btnPulse 2.6s ease-in-out infinite 1.9s;
+}
+
+.mapBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.7s ease;
+}
+
+.mapBtn:hover::before {
+  left: 140%;
+}
+
+.mapBtn:hover {
+  background: linear-gradient(135deg, #a87900, #c99618);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(168, 121, 0, 0.4);
+  animation-play-state: paused;
+}
+
+.mapBtn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes btnPulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 20px rgba(201, 150, 24, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 26px rgba(201, 150, 24, 0.55);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive điện thoại */
+
+@media (max-width: 600px) {
+  .card {
+    width: 90vw;
+    height: 160vw;
+  }
+
+  .card-overlay {
+    padding: 40px 30px;
+    gap: 10px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .desc {
+    max-width: 100%;
+  }
+}
